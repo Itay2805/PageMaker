@@ -1,0 +1,1 @@
+body {background-color: 000000; /* background color (main) */color: 000001; /* text color (main) */font-family: arial; /* text font (main) */}.strip {background-color: 000002; /* background color (header and footer) */color: 000003; /* text color (header and footer) */padding: 10px;border-radius: 5px;}.largeText {	font-size: 36px; /* font size of 36(pixels) */}
