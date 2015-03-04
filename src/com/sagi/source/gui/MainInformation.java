@@ -59,7 +59,7 @@ public class MainInformation {
 	private void initialize() {
 		frmPageMaker = new JFrame();
 		frmPageMaker.setResizable(false);
-		frmPageMaker.setTitle("Page Maker | Indev | Alpha 3.0.0");
+		frmPageMaker.setTitle("Page Maker | Alpha 3.0.0");
 		frmPageMaker.setBounds(100, 100, 487, 466);
 		frmPageMaker.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPageMaker.getContentPane().setLayout(null);

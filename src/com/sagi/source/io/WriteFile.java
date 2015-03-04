@@ -23,7 +23,7 @@ public class WriteFile {
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(path, "UTF-8");
-			writer.println(data);
+			writer.print(data);
 			writer.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("Error when trying to create file at " + path + name + " -> " + e.getMessage());

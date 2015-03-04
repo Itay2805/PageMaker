@@ -42,6 +42,8 @@ public class Editor {
 	
 	private static final JComboBox<String> cssclass = new JComboBox<String>();
 	private static final JComboBox<String> type = new JComboBox<String>();
+	private static final JComboBox<String> packages = new JComboBox<String>();
+
 	
 	private static 	URL website = null;
 	private static ReadableByteChannel rbc = null;
@@ -72,10 +74,10 @@ public class Editor {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize() {		
 		frmPageMaker = new JFrame();
 		frmPageMaker.setResizable(false);
-		frmPageMaker.setTitle("Page Maker | Indev | Alpha 3.0.0");
+		frmPageMaker.setTitle("Page Maker |  Alpha 3.0.0");
 		frmPageMaker.setBounds(100, 100, 517, 364);
 		frmPageMaker.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPageMaker.getContentPane().setLayout(null);
@@ -124,7 +126,7 @@ public class Editor {
 		panel.add(cssclass);
 		cssclass.setModel(new DefaultComboBoxModel<String>(new String[] {"--Choose--", "largeText (style.css)", "strip (style.css)"}));
 		
-		Packages.readFiles();
+		Packages.loadFiles();
 		
 		JButton add = new JButton("Edit");
 		add.setBounds(377, 241, 89, 23);
@@ -204,19 +206,31 @@ public class Editor {
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Install", null, panel_1, null);
 		panel_1.setLayout(null);
-		
-		JButton btnInstall = new JButton("Install");
-		btnInstall.setBounds(149, 241, 89, 23);
-		panel_1.add(btnInstall);
-		
+						
 		JLabel lblPleaseChooseA = new JLabel("Please choose a package to install");
 		lblPleaseChooseA.setBounds(10, 11, 220, 14);
 		panel_1.add(lblPleaseChooseA);
 		
-		JComboBox<String> packages = new JComboBox<String>();
 		packages.addItem("--Choose--");
 		packages.setBounds(10, 36, 166, 20);
 		panel_1.add(packages);
+		
+		Packages.getPackages();
+		
+		JButton btnInstall = new JButton("Install");
+		btnInstall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String packageChoose = packages.getSelectedItem().toString();
+				if(!packageChoose.equals("--Choose--")) {
+					Packages.install(Packages.packages.get(packageChoose));
+					
+				}else {
+					
+				}
+			}
+		});
+		btnInstall.setBounds(149, 241, 89, 23);
+		panel_1.add(btnInstall);
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setOrientation(SwingConstants.VERTICAL);
@@ -337,5 +351,9 @@ public class Editor {
 	
 	public static void addType(String name) {
 		type.addItem(name);
+	}
+	
+	public static void addPackage(String name) {
+		packages.addItem(name);
 	}
 }

@@ -1,0 +1,2 @@
+body {background-color: white; /* background color (main) */color: black; /* text color (main) */font-family: arial; /* text font (main) */}.strip {background-color: black; /* background color (header and footer) */color: white; /* text color (header and footer) */padding: 10px;border-radius: 5px;}.largeText {	font-size: 36px; /* font size of 36(pixels) */}
+

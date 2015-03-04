@@ -98,6 +98,7 @@ public class Data {
 				System.out.println("   ....   Created!");
 				WriteFile.writeFile(resources.toPath() + "/index.html", "index.html", "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><link rel=\"stylesheet\" href=\"./css/style.css\"><!-- CSS/JS HERE --><title>000000</title> <!-- Company name --></head><body><header class=\"strip\"><h1 class=\"largeText\">000000</h1> <!-- Company name --></header><section><br><br><!-- CODE IN HERE --><br><br></section><footer class=\"strip\"><p><small><em>&copy; Copy Right 2015 000001</em></small></p> <!-- Copy Right name --></footer></body></html>");;
 				WriteFile.writeFile(resources.toPath() + "/style.css", "style.css", "body {background-color: 000000; /* background color (main) */color: 000001; /* text color (main) */font-family: arial; /* text font (main) */}.strip {background-color: 000002; /* background color (header and footer) */color: 000003; /* text color (header and footer) */padding: 10px;border-radius: 5px;}.largeText {	font-size: 36px; /* font size of 36(pixels) */}");;
+				WriteFile.writeFile(resources.getPath() + "/packages.conf", "packages.conf", "[PLACEHOLDER]");
 			} catch (SecurityException e){
 				System.out.println("Error when trying to create the resources files directory -> " + e.getMessage());
 				e.printStackTrace();

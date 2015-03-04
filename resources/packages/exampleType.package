@@ -1,0 +1,20 @@
+<INFO>
+main=button.css
+type=Button;<a href:"0002" class:"button">0000</a>
+</INFO>
+<CSS>
+a.button {
+	background-color: black;
+	color: white;
+	padding: 5px;
+	transition: background-color 0.4s ease 0s;
+	text-decoration: none;
+}
+
+a:hover.button {
+	background-color: grey;
+	transition: background-color 0.4s ease 0s;
+	text-decoration: none;
+}
+</CSS>
+<FINISH>

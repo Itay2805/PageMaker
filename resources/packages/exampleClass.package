@@ -1,0 +1,12 @@
+<INFO>
+main=strip.css
+class=blueStrip
+</INFO>
+<CSS>
+.blueStrip {
+	background-color: blue;
+	color: white;
+	padding: 5px;
+}
+</CSS>
+<FINISH>

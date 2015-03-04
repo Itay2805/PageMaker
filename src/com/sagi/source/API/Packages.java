@@ -4,10 +4,15 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import com.sagi.source.generate.Edit;
 import com.sagi.source.gui.Editor;
+import com.sagi.source.io.ReadFile;
 import com.sagi.source.io.WriteFile;
 
 /**
@@ -27,28 +32,41 @@ public class Packages {
 	public static HashMap<String, String> types = new HashMap<String, String>(); 
 	
 	/**
-	 * Find all the files in the /include/folder to get all the .include files
-	 * 
-	 * @return list of all the files in the folder
+	 * List of packages
 	 */
-	private static File[] readFolder() {
+	public static HashMap<String, File> packages = new HashMap<String, File>();
+	/**
+	 * List of installed files
+	 */
+	public static List<File> installed = new ArrayList<File>();
+	
+	/**
+	 * Gets all the packages in the '/resources/packages/ folder'
+	 */
+	public static void getPackages() {
 		File folder = new File(System.getProperty("user.dir") + "/resources/packages");
 		File[] listOfFiles = folder.listFiles();
-		return listOfFiles;
+		for(int i = 0 ; i < listOfFiles.length; i++) {
+			if(listOfFiles[i].getName().contains(".package")) {
+				packages.put(listOfFiles[i].getName(), listOfFiles[i]);
+				Editor.addPackage(listOfFiles[i].getName());
+			}
+		}
 	}
 	
 	/**
-	 * This finds all the files with a 'package' and loads them.
+	 * This loads all the installed packages to make sure the filles excist and linked
 	 */
-	public static void readFiles() {
-		File[] listOfFiles = readFolder();
-		System.out.print("Loading packages");
-		for(int i = 0 ; i < listOfFiles.length; i++) {
-			if(listOfFiles[i].getName().contains(".package")) {
-				load(listOfFiles[i]);
+	public static void loadFiles(){
+		String data = ReadFile.readFile(new File(System.getProperty("user.dir") + "/resources/packages.conf"));
+		data = data.replace("[PLACEHOLDER]", "");
+		String[] files = data.split(";");
+		for(int i = 0; i < files.length; i++) {
+			String path = System.getProperty("user.dir") + "/resources/packages/" + files[i];
+			if(!path.equals(System.getProperty("user.dir") + "/resources/packages/")) {
+				load(new File(path));					
 			}
 		}
-		System.out.println("   ....   Done!");
 	}
 	
 	/**
@@ -82,7 +100,6 @@ public class Packages {
                 	}else if(line.equals("<CSS>")) {
                 		css = true;
                 	}else if(line.equals("</CSS>")) {
-                		System.out.println(data);
                 		WriteFile.writeFile(System.getProperty("user.dir") + "/generatedPages/css/" + main, main, data);
                 		css = false;
                 	}else if(line.equals("<FINISH>")) {
@@ -110,9 +127,29 @@ public class Packages {
         	}
             reader.close();
         }catch(Exception e) {
-			System.out.println("Error when trying to load " + file.getName() + " -> " + e.getCause());
+			System.out.println("Error when trying to load " + file.getName() + " -> " + e.getMessage());
         	e.printStackTrace();
         }
+	}
+	
+	/**
+	 * This adds the files to the memory and reads them
+	 * 
+	 * @param file - The file to load
+	 */
+	public static void install(File file) {
+		System.out.print("Installing" + file.getName());
+		String data = ReadFile.readFile(new File(System.getProperty("user.dir") + "/resources/packages.conf"));
+		if(data.contains(file.getName())) {
+			System.out.print("   ....   Already Installed!");
+			JOptionPane.showMessageDialog(null, "Package already installed!", "Editor", JOptionPane.ERROR_MESSAGE);
+		}else {
+			data = data.replace("[PLACEHOLDER]", file.getName() + ";[PLACEHOLDER]");
+			WriteFile.writeFile(System.getProperty("user.dir") + "/resources/packages.conf", "packages.conf", data);
+			installed.add(file);
+			load(file);
+			System.out.println("   ....   Done!");
+		}
 	}
 	
 }
