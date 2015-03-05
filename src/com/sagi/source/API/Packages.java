@@ -16,9 +16,10 @@ import com.sagi.source.io.ReadFile;
 import com.sagi.source.io.WriteFile;
 
 /**
- * This class creates the files needed for the program to run
+ * This class is on charge of the API. It installs and reading and running all the packages.
  *
  * @author SAGI Code
+ * @version 1.0.0
  */
 public class Packages {
 	

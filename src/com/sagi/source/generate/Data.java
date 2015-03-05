@@ -12,6 +12,7 @@ import com.sagi.source.io.WriteFile;
 
 public class Data {
 	
+	//This is all the dirs as a 'File' object
 	private static String dir = System.getProperty("user.dir");
 	private static File generatedPages = new File(dir + "/generatedPages/");
 	private static File css = new File(generatedPages.getPath() + "/css/");
@@ -19,6 +20,9 @@ public class Data {
 	private static File resources = new File(dir + "/resources/");
 	private static File packages = new File(resources.getPath() + "/packages/");
 	
+	/**
+	 * This calls all the create method
+	 */
 	public static void createDirs() {
 		createPagesDir();
 		createCssDir();
